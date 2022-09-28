@@ -1,0 +1,6 @@
+debian/tmp/usr/share/man/man1/ac.1
+debian/tmp/usr/share/man/man1/lastcomm.1
+debian/tmp/usr/share/man/man8/accton.8
+debian/tmp/usr/share/man/man8/dump-acct.8
+debian/tmp/usr/share/man/man8/dump-utmp.8
+debian/tmp/usr/share/man/man8/sa.8

@@ -1,0 +1,87 @@
+Description: fix minor spelling errors.
+Author: Marcos Fouces <marcos@debian.org>
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+
+--- a/NEWS
++++ b/NEWS
+@@ -22,7 +22,7 @@
+ 
+ New in 6.5.1:
+ 
+-  * GNUlib for compability, audited code... Reworked.
++  * GNUlib for compatibility, audited code... Reworked.
+ 
+ New in 6.5:
+ 
+@@ -49,7 +49,7 @@
+   * The acct.h header file is now expected to be at <sys/acct.h>,
+     the older <linux/acct.h> is ignored. As this file is not used
+     at all when Linux multiformat is enabled (which is the default),
+-    noone should notice this change anyways.
++    no one should notice this change anyways.
+ 
+   * A bug with the ctime() function on 64 bit platforms was fixed.
+ 
+@@ -107,7 +107,7 @@
+   * We use `automake' to build the package, so things like ansi2knr
+     should be called automatically for those of you that don't have
+     ANSI C compilers.  It also helps write the install targets, etc.
+-    Very cool.  I was suprised how easy it was to integrate into this
++    Very cool.  I was surprised how easy it was to integrate into this
+     package.  Hats off to David J. MacKenzie and Tom Tromey!
+ 
+ 
+--- a/accounting.info
++++ b/accounting.info
+@@ -32,7 +32,7 @@
+ File: accounting.info,  Node: Top,  Next: Preface,  Prev: (dir),  Up: (dir)
+ 
+    Welcome to the GNU Accounting Utilities!  If you don't have a clue
+-about the accounting utilities, read the introduction.  For specfic
++about the accounting utilities, read the introduction.  For specific
+ information about any of the applications, see the chapter with the
+ program's name.
+ 
+@@ -394,7 +394,7 @@
+ 
+ For no fault of `ac''s, if two logins occur at the same time (within a
+ second of each other), each `login' process will try to write an entry
+-to the `wtmp' file.  With file system overhead, it is forseeable that
++to the `wtmp' file.  With file system overhead, it is foreseeable that
+ the entries would get written in the wrong order.  GNU `ac'
+ automatically compensates for this, but some other `ac's may not...
+ beware.
+--- a/al_share.cpp
++++ b/al_share.cpp
+@@ -9,7 +9,7 @@
+ 
+ /* This is the loop that handles the parsing of entries.  Since it's
+    virtually identical for ac & last, I figured it was better to have
+-   only one copy of it to reduce the possiblity of errors. */
++   only one copy of it to reduce the possibility of errors. */
+ 
+ void parse_entries(void)
+ {
+--- a/last.c
++++ b/last.c
+@@ -356,7 +356,7 @@
+ 
+           hashtab_create (names, argv[optind], 0);
+ 
+-          /* add the name as "tty<name>" for u*x compatibilty */
++          /* add the name as "tty<name>" for u*x compatibility */
+ 
+           string = (char *) xmalloc ((strlen (argv[optind]) + 4)
+                                      * sizeof (char));
+--- a/dump-utmp.8
++++ b/dump-utmp.8
+@@ -5,7 +5,7 @@
+ .SH NAME
+ dump\-utmp \- print a utmp file in human-readable format
+ 
+-.SH SYNOPSYS
++.SH SYNOPSIS
+ \fBdump-utmp\fR [\fB-hrR\fR] [\fB-n\fR <\fIrecs\fR>] <\fBfiles\fR>
+       [\fB--num\fR <\fIrecs\fR>] [\fB--raw\fR] [\fB--reverse\fR] [\fB--help\fR]
+ 

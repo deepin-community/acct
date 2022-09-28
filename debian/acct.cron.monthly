@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# cron script to perform monthly login accounting.
+#
+# Written by Ian A. Murdock <imurdock@gnu.ai.mit.edu>
+# Modified by Dirk Eddelbuettel <edd@debian.org>   
+# Modified by Tero Tilus <terotil@www.haapavesi.fi>
+# Patch adopted by Christian Perrier <bubulle@debian.org> for #187538
+# Modified by Marcos Fouces <marcos@debian.org>
+
+# Since logrotate mantainer defined the rotation of wtmp file when it
+# reach the size of 1 MB instead of doing it monthly, we also need to
+# check rotated wtmp files in order to have all the records.
+
+test -x /usr/sbin/accton || exit 0
+    echo "####################################################################" > /var/log/wtmp.report
+    echo "################# LOGIN ACCOUNTING MONTHLY REPORT ##################" >> /var/log/wtmp.report
+    echo "####################################################################" >> /var/log/wtmp.report
+	echo >> /var/log/wtmp.report
+
+    echo "Login accounting for the month ended `date`:" >> /var/log/wtmp.report
+    echo >> /var/log/wtmp.report
+
+# Check the existence of wtmp.1 or wtmp.1.gz before trying to process them.
+# In a recently installed system none of them should exist and thereby
+# cron job gives an error. Check (#864242)
+# The script process the content of wtmp.1 or wtmp.1.gz (if one of them exists)
+# and also the data from current wtmp.
+
+if test -f /var/log/wtmp.1 || test -f /var/log/wtmp.1.gz; then
+
+		if [ -f /var/log/wtmp.1 ]
+		then
+			WTMP="/var/log/wtmp.1"
+		elif [ -f /var/log/wtmp.1.gz ]
+		then
+			WTMP_WAS_GZIPPED="1"
+			WTMP="`tempfile`"
+
+			gunzip -c /var/log/wtmp.1.gz > "${WTMP}"
+		fi
+        echo "Data contained in rotated wtmp file." >> /var/log/wtmp.report
+        echo >> /var/log/wtmp.report
+		ac -f "${WTMP}" -p | sort -nr -k2 >> /var/log/wtmp.report
+		echo >> /var/log/wtmp.report
+		last -f "${WTMP}" >> /var/log/wtmp.report
+
+		if [ -n "${WTMP_WAS_GZIPPED}" ]
+		then
+			# remove temporary file
+			rm -f "${WTMP}"
+		fi
+fi
+        echo "Data contained in current wtmp file:" >> /var/log/wtmp.report
+		ac -p | sort -nr -k2 >> /var/log/wtmp.report
+		echo >> /var/log/wtmp.report
+		last >> /var/log/wtmp.report
+
+
+chown root:adm /var/log/wtmp.report
+chmod 640 /var/log/wtmp.report

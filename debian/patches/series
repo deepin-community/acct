@@ -1,0 +1,6 @@
+01_do-not-split-html-info.patch
+02_414300-lastcomm-fields-descr.patch
+03_cross-build-support.patch
+04_Fix-spelling-errors.patch
+05_Adapt_dump.acct.8-manpage.patch
+06_adapt_dump-utmp.8-manpage.patch

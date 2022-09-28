@@ -1,0 +1,16 @@
+From: Mathieu Trudel <mathieu.tl@gmail.com>
+Subject: Correct field description for the last field in lastcomm's reports
+ Thanks David Simner.
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414300
+
+--- a/accounting.texi
++++ b/accounting.texi
+@@ -598,7 +598,7 @@
+ @item
+ the name of the user who ran the process
+ @item
+-time the process exited
++time the process started
+ @end itemize
+ 
+ @section Flags

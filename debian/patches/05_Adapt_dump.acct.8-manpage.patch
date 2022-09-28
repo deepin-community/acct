@@ -1,0 +1,141 @@
+Description: debianize dump-acct.8 manpage.
+Author: Daniel Baumann <daniel@debian.org> and Mathieu Trudel <mathieu.tl@gmail.com>
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+
+--- a/dump-acct.8
++++ b/dump-acct.8
+@@ -1,53 +1,99 @@
+-.\" Copyright (C) 2009 Red Hat, Inc. All Rights Reserved.
+-.\" Written by Ivana Hutarova Varekova <varekova@redhat.com>
+-.TH DUMP_ACCT 8 "2009 December 2" "Linux accounting system"
++.TH DUMP-ACCT 8 "2006-04-22" "6.4pre1" "GNU Accounting Utilities"
+ 
+ .SH NAME
+-dump\-acct \- print an acct/pacct file in human-readable format
++dump-acct \- print an acct file in human-readable format.
+ 
+ .SH SYNOPSIS
+ .B dump-acct
+-[\fB\-r\fR|\fB\-\-reverse\fR]
+-[\fB\-R\fR|\fB\-\-raw\fR]
+-[\fB\-n\fR|\fB\-\-num\fR\ \fIrecs\fR]
+-[\fB\-\-byte\-swap\fR]
+-[\fB\-\-format\fR]
+-[\fB\-\-ahz\fR\ \fIfreq\fR]
+-[\fB\-h\fR|\fB\-\-help\fR]
+-[\fIfiles\fR]
++.RB [\| \-r \||\| \-\-reverse \|]
++.RB [\| \-R \||\| \-\-raw \|]
++.RB [\| \-\-format \|]
++.IR version \|]
++.RB [\| \-\-byteswap \|]
++.RB [\| \-\-ahz \|]
++.IR hertz \|]
++.RB [\| \-n \||\| \-\-num
++.IR recs \|]
++.RB [\| \-h \||\| \-\-help \|]
++.RB [\|
++.IR files \|]
+ 
+ .SH DESCRIPTION
+-The dump-acct command transforms the output \fBfile\fR from the
+-accton format to the human-readable format: one record per line.
+-Each record consists of severald fields which are separated by
+-character "|" (the meaning of concreate field depends on the
+-version of kernel package - with which the accton file was created).
++.B dump-acct
++.I filename
++prints a list of all executed processes. This list is written by the kernel
++which must be compiled with BSD process accounting enabled (Debian kernel image
++have it already enabled). It must be started with
++.BR accton (5).
++Note that on Debian systems, this is ensured via the init script
++.IR /etc/init.d/acct .
++.LP
++All fields are separated by vertical line. Fields are:
++.IR command ,
++.IR version ,
++.IR "user time" ,
++.IR "system time" ,
++.IR "effective time" ,
++.IR uid ,
++.IR gid ,
++.IR memory ,
++.IR io ,
++.IR pid ,
++.IR ppid ,
++.IR time .
++User, system and effective times are ticks per second. One tick is usually 1/50
++of a second. The
++.I time
++field shows the start time of the process.
++
++The 
++.B \-\-raw
++switch, as well as the 
++.B \-\-format,
++.B \-\-byteswap,
++and
++.B \-\-ahz
++can be used as a handy format converter.
+ 
+ .SH OPTIONS
+-The following options are supported:
+ .TP
+-.B -r, --reverse
+-Print the output in reverse order.
++.B \-h, \-\-help
++Prints the usage string and default locations of system files to standard output
++and exits.
++.TP
++.B \-n, \-\-num recs
++Number of lines to print.
+ .TP
+-.B -R, --raw
+-The records will be printed without any parsing.
++.B \-r, \-\-reverse
++Start printing from last records.
+ .TP
+-.B -n, --num NUMRECS
+-Display only the first NUMRECS number of records.
++.B \-R, \-\-raw
++Print raw records, not human-readable.
+ .TP
+-.B --byteswap
+-Swap the bytes (relative to your system's native byte order) in --raw output.
++.B \-\-format version
++Use specified format version to display records.
+ .TP
+-.B --format
+-Set output format with --raw option.
++.B \-\-byteswap
++Swap bytes endianness when reading records.
+ .TP
+-.B --ahz FREQ
+-Set the AHZ (platform dependent frequency in Hertz) to FREQ.
++.B \-\-ahz
++Use specified units of time to display data from other kernel versions and
++architectures.
++
++.SH FILES
+ .TP
+-.B -h, --help
+-Print a help message and the default location of the process accounting file
+-and exit.
++.I acct
++The system wide process accounting file. See
++.BR acct (5)
++for further details.
+ 
+ .SH SEE ALSO
+-accton (8), lastcomm (1)
++.BR acct (5),
++.BR ac (8).
+ 
++.SH AUTHOR
++The GNU accounting utilities were written by Noel Cragg <noel@gnu.ai.mit.edu>.
++.PP
++This manual page was written by Ognyan Kulev <ogi@fmi.uni-sofia.bg> and updated
++by Daniel Baumann <daniel@debian.org> and Mathieu Trudel <mathieu.tl@gmail.com>
++for the Debian project (but may be used by others).

@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DH_VERBOSE = 1
+include /usr/share/dpkg/pkg-info.mk
+%:
+	dh $@
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -f config.log
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--prefix=/usr \
+		--mandir=\$${prefix}/share/man \
+		--infodir=\$${prefix}/share/info \
+		$(NULL)
+	# Ensure any embedded "updated.." timestamps in documentation match the
+	# latest entry in debian/changelog.
+	touch --date="@$(SOURCE_DATE_EPOCH)" accounting.texi
+
+override_dh_auto_build:
+	dh_auto_build
+	$(MAKE) info
+	makeinfo --html accounting.texi -o html
+
+override_dh_auto_install:
+	dh_auto_install --destdir=$(CURDIR)/debian/tmp
+
+	# Removing last, it's in the sysvinit package instead.
+	rm -f debian/tmp/usr/bin/last
+	rm -f debian/tmp/usr/share/man/man1/last.1
+
+override_dh_installinit:
+	dh_installinit -- start 20 2 3 4 5 . stop 20 1 .

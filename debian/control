@@ -1,0 +1,25 @@
+Source: acct
+Section: admin
+Priority: optional
+Maintainer: Debian Security Tools <team+pkg-security@tracker.debian.org>
+Uploaders: Marcos Fouces <marcos@debian.org>
+Build-Depends: debhelper-compat (= 13), texinfo
+Standards-Version: 4.5.0
+Homepage: https://www.gnu.org/software/acct/
+Vcs-Git: https://salsa.debian.org/pkg-security-team/acct.git
+Vcs-Browser: https://salsa.debian.org/pkg-security-team/acct
+Rules-Requires-Root: no
+
+Package: acct
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, lsb-base
+Pre-Depends: ${misc:Pre-Depends}
+Description: GNU Accounting utilities for process and login accounting
+ GNU Accounting Utilities is a set of utilities which reports and summarizes
+ data about user connect times and process execution statistics.
+ .
+ "Login accounting" provides summaries of system resource usage based on connect
+ time, and "process accounting" provides summaries based on the commands
+ executed on the system.
+ .
+ The 'last' command is provided by the util-linux package and not included here.

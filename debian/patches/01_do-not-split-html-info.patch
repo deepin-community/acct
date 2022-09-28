@@ -1,0 +1,15 @@
+From: Mathieu Trudel <mathieu.tl@gmail.com>
+Subject: Don't split HTML documentation in multiple files.
+Forwarded: no
+
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -181,7 +181,7 @@
+ TEXINFOS = accounting.texi
+ TEXI2DVI = texi2dvi
+ TEXI2PDF = $(TEXI2DVI) --pdf --batch
+-MAKEINFOHTML = $(MAKEINFO) --html
++MAKEINFOHTML = $(MAKEINFO) --html --no-split
+ AM_MAKEINFOHTMLFLAGS = $(AM_MAKEINFOFLAGS)
+ DVIPS = dvips
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \

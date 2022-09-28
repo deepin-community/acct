@@ -1,0 +1,13 @@
+[Unit]
+Description=Kernel process accounting
+Documentation=man:accton(8)
+ConditionPathExists=/var/log/account
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/accton /var/log/account/pacct
+ExecStop=/usr/sbin/accton off
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

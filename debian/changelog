@@ -1,0 +1,881 @@
+acct (6.6.4-4) unstable; urgency=medium
+
+  * Bump to debhelper-compat 13
+  * Update uploader email to @debian.org
+  * Define manpages to install in d/acct.manpages.
+  * Fix typo in acct.cron.monthly (Thanks to Sergio Gelato).
+    (Closes: #961962)
+  * Add *.asc pristine-tar commit file (See #954743).
+
+ -- Marcos Fouces <marcos@debian.org>  Sat, 26 Sep 2020 13:39:14 +0200
+
+acct (6.6.4-3) unstable; urgency=medium
+
+  [ Jelmer Vernooĳ ]
+  * Use secure URI in Homepage field.
+  * Trim trailing whitespace.
+  * Use secure URI in debian/watch.
+
+  [ Marcos Fouces ]
+  * last command is in util-linux package now. (Closes:#946833)
+  * Add Rules-Requires-Root: no in control file.
+  * Update copyright dates.
+  * Delete /var/log/wtmp.report on purge.
+  * Check whether wtmp.1 or wtmp.1.gz exist
+    before logrotate execution (Closes: #864242).
+  * Changes in acct.cron.monthly detailed in README.Debian
+  * Add support for the status init script argument as per policy.
+  * Add systemd unit configuration file (d/acct.service).
+  * Bump to Standards-Version 4.5.0.
+  * Switch to debhelper-compat level 12. Drop obsolete d/compat file.
+  * Add Pre-Depends: ${misc:Pre-Depends} to handle
+    --skip-systemd-native invoke-rc.d flag properly.
+  * Use secure URI in patch file and copyright file.
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Sat, 28 Mar 2020 12:50:57 +0100
+
+acct (6.6.4-2) unstable; urgency=medium
+
+  [ Lukas Schwaighofer ]
+  * Team upload.
+  * Update signing-key.asc to upstream's new gpg key.
+
+  [ Raphaël Hertzog ]
+  * Update team maintainer address to Debian Security Tools
+    <team+pkg-security@tracker.debian.org>
+  * Update Vcs-Git and Vcs-Browser for the move to salsa.debian.org
+  * Fix typo in patch description
+  * Bump Standards-Version to 4.2.0
+  * Bump debhelper compat level to 11
+
+ -- Raphaël Hertzog <hertzog@debian.org>  Thu, 23 Aug 2018 18:01:38 +0200
+
+acct (6.6.4-1) unstable; urgency=high
+
+  [ Marcos Fouces ]
+  * Revert to previous init.d script. (Closes: #865223)
+  * Bump to Standards-version 4.0.0
+  * New upstream version 6.6.4
+
+  [ Lukas Schwaighofer ]
+  * improve init.d script: accton is not a daemon, call it directly (without
+    start_daemon) so the exit code can be interpreted properly
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Fri, 07 Jul 2017 00:10:26 +0200
+
+acct (6.6.3-1) unstable; urgency=medium
+
+  [ Gianfranco Costamagna ]
+  * Restrict shutdown on non-systemd init systems
+    (See: https://wiki.ubuntu.com/Teardown )
+
+  [ Marcos Fouces ]
+  * New upstream version 6.6.3
+  * Add gpg upstream signing-key to watch file
+  * Update uploader email address
+  * Rewrite init script and add status option
+  * Update depends field content in control file.
+  * Fix man page installation
+  * Add 04_Fix-spelling-errors.patch
+  * Add two patches in order to install debianized versions
+    of dump-utmp and dump-acct manpages.
+  * Fix reproducible build. Thanks to Chris Lamb (Closes: #862179)
+  * Set a more suited directory name for html docs (Closes: #862180)
+
+  [ Raphaël Hertzog ]
+  * Drop install-info from Depends, it's no longer needed.
+
+ -- Marcos Fouces <marcos.fouces@gmail.com>  Fri, 16 Jun 2017 14:53:33 +0200
+
+acct (6.6.2-1) unstable; urgency=medium
+
+  * New upstream version 6.6.2 (Closes: #678448, #746317,
+    Closes: #528864, #615015)
+  * More robust cron-daily script. Thanks to Osamu Aoki
+    (Closes:#581990)
+  * Fix cron.monthly script. Thanks to Fabian Pietsh and
+    Dominique Brazziel (Closes:#405134)
+  * Rework patches for new upstream release
+  * Set maintenance to pkg-security team
+  * Remove build-depends on obsolete texi2html
+  * Add dependency on lsb-base (>=3.0-6)
+  * Bump to standards-revision 3.9.8
+  * Update to debhelper 10
+  * Avoid initial article in description
+  * Fix dep-5 issues on copyright file
+  * Add hardening options
+  * dh 10 already implies build-depends on dh-autoreconf
+  * Update copyright holders
+
+ -- Marcos Fouces <mfouces@yahoo.es>  Wed, 12 Oct 2016 08:33:28 +0200
+
+acct (6.5.5-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix preprocessor syntax mistake is files.h.in to prevent FTBFS on
+    kFreeBSD (Closes: #736949)
+
+ -- Alessio Treglia <alessio@debian.org>  Wed, 26 Mar 2014 14:20:41 +0000
+
+acct (6.5.5-2) unstable; urgency=low
+
+  * debian/rules:
+    - Update to use dh. (Closes: 647015)
+    - Run dh_autoreconf properly (Closes: 696204)
+  * debian/compat: update to compat 9.
+  * debian/control:
+    - Bump debhelper build-depends to >= 9.
+    - Update to Standards-Version 3.9.4.
+    - Add a Build-Depends on dh-autoreconf.
+    - Drop Build-Depends for autoconf, automake, autotools-dev.
+  * debian/patches/isoc11_drops_gets.patch: don't try to warn for use of gets,
+    it's not actually used in acct and no longer in C11, which causes the
+    attempt to set a warning to fail the build. (Closes: 701386)
+  * debian/patches/fix-texi-warnings.patch: fix warnings when building
+    documentation from texi source. Thanks, Dimitry Ledkov.
+  * debian/patches/cross-build-support.patch: fix cross-building by removing
+    the unnecessary configure checks that run a program to attempt to determine
+    accounting file locations. Thanks to Steve Langasek for the patch.
+    (Closes: 696204)
+
+ -- Mathieu Trudel-Lapierre <mathieu-tl@ubuntu.com>  Sun, 26 Jan 2014 18:17:38 +0000
+
+acct (6.5.5-1) unstable; urgency=low
+
+  * Acknowledge NMU.
+  * New upstream release: 6.5.5
+  * debian/patches/03-acct-file.patch: update for new release.
+  * Bump Standards-Version to 3.9.1.
+  * debian/control: Drop quilt Build-Depends (not needed in 3.0 quilt format).
+  * debian/rules: Drop the usage of quilt.mk (and calls to patch/unpatch).
+  * debian/patches/581421-sa-hz-division.patch: update to unbreak specifying
+    --other-acct-file for 'sa', remove other unnecessary hunks as well.
+  * debian/patches/12-ftbfs-kfreebsd.patch: apply patch to fix builds
+    on kfreebsd, with some adjustements due to parts of the patch already
+    applied upstream. Many thanks to Mats Erik Andersson for the patch.
+    (Closes: 600284)
+  * debian/patches/441927-accton-without-args.patch: slightly update docs
+    to have it agree with accton, which can't be called without arguments.
+    (Closes: 441927)
+  * debian/control: update Maintainer entry for GPG key change.
+
+ -- Mathieu Trudel-Lapierre <mathieu.tl@gmail.com>  Fri, 25 Feb 2011 20:31:15 -0500
+
+acct (6.5.4-2.1) unstable; urgency=low
+
+  * NMU with maintainer's blessing.
+  * Call autoreconf in debian/rules, add autoconf and automake to
+    build-dependencies.
+    Thanks to Mats Erik Andersson for the hint to how to solve this.
+    (closes: #579483).
+
+ -- Ralf Treinen <treinen@debian.org>  Mon, 27 Sep 2010 22:06:24 +0200
+
+acct (6.5.4-2) unstable; urgency=low
+
+  * Re-add patch 03-acct-file.patch applied upstream in 6.5.1, seems the
+    change is no longer there in 6.5.4. (Closes: 579483)
+  * Update Standards-Version to 3.9.0.
+  * Revert to division by CURR_AHZ rather sysconf(_SC_CLK_TCK) (Closes: 581421)
+
+ -- Mathieu Trudel <mathieu.tl@gmail.com>  Fri, 23 Jul 2010 08:58:38 +0200
+
+acct (6.5.4-1) unstable; urgency=low
+
+  * New upstream release: 6.5.4
+  * Updated patch to remove last from the documentation.
+    - updated debian/patches/01-last.patch
+  * Drop lastcomm's strict-match documentation patch, applied upstream.
+    - deleted debian/patches/06-lastcomm-manpage-strict-match.patch
+    - updated debian/patches/series
+  * Drop manpage updates to remove PD macros.
+    - deleted debian/patches/07-manpage-PD-macros.patch
+    - updated debian/patches/series
+  * Drop lastcomm manpage update for typos (B macro).
+    - deleted debian/patches/08-lastcomm-manpage-hyphen-as-minus-sign.patch
+    - updated debian/patches/series
+  * Update field descriptions for lastcomm's reports (Closes: #414300)
+    - added debian/patches/414300-lastcomm-fields-descr.patch
+  * Update FILES section in lastcomm's manpage (Closes: #512729)
+    - added debian/patches/512729-lastcomm-files.patch
+    - updated debian/patches/series
+  * Correct default unit in sa manpage, thanks Dominique Brazziel
+    (Closes: #488731)
+    - added debian/patches/488731-sa-manpage-default-unit.patch
+    - updates debian/patches/series
+  * Update acct init.d script to use lsb init-functions (Closes: #457976)
+    - updated debian/acct.init.d
+  * Create debian/source/format, switch to format 3.0 (quilt).
+    - added debian/source/format
+  * Bump Standards-Version to 3.8.4
+    - update debian/control
+  * Drop dircategory/direntry additions to accounting.texi, applied upstream.
+    - deleted debian/patches/09-info-dir-entry.patch
+    - updated debian/patches/series
+
+ -- Mathieu Trudel <mathieu.tl@gmail.com>  Sun, 25 Apr 2010 23:08:23 -0400
+
+acct (6.5.1-1) unstable; urgency=low
+
+  * New maintainer (Closes: #543825)
+  * New upstream release.
+    - Drop patch 02-manpage.patch, applied upstream.
+    - Drop patch 03-acct-file.patch. applied upstream.
+    - Drop patch 04-lastcomm-forwards.patch, applied upstream.
+    - Drop changes to accounting.info from 01-last.patch, file is rebuilt.
+  * Updated dump-acct.8 manpage (Closes: #401597)
+  * Sync strict-match documentation with reality (Closes: #401904)
+  * Add format, byteswap and ahz swiches to dump-acct manpage (Closes: #401597)
+  * Re-adding watch file.
+  * Fixed minor errors in manpages: PD macros.
+  * Fixed minor typo in lastcomm manpage.
+  * Use invoke-rc.d in daily crontab.
+  * Fixed depends for triggerized install-info directory building.
+  * Set doc-base section to System/Security.
+  * Added README.source
+  * Updated copyright to reflect licence and new upstream maintainer.
+  * Added dircategory and direntry entries in texinfo source.
+  * Install all files individually from debian/tmp using acct.install.
+  * Don't split HTML documentation in multiple files.
+  * Conversion to keep packaging in Bzr source control.
+
+ -- Mathieu Trudel <mathieu.tl@gmail.com>  Sat, 05 Dec 2009 00:35:01 -0500
+
+acct (6.4~pre1-9) unstable; urgency=low
+
+  * QA upload.
+  * Changed Makefile.in to avoid /usr/share/info/dir.gz. Closes: #543911.
+
+ -- Santiago Vila <sanvila@debian.org>  Mon, 31 Aug 2009 13:14:50 +0200
+
+acct (6.4~pre1-8) unstable; urgency=low
+
+  * Updating package to standards version 3.8.3.
+  * Sorting depends.
+  * Removing vcs fields.
+  * Orphaning package.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 27 Aug 2009 06:44:02 +0200
+
+acct (6.4~pre1-7) unstable; urgency=low
+
+  * Reverting config.guess and config.sub to upstream.
+  * Upgrading package to debhelper 7.
+  * Upgrading package to standards 3.8.0.
+  * Adding vcs fields in control file.
+  * Rewriting copyright file in machine-interpretable format.
+  * Removing watch file.
+  * Using patch-stamp rather than patch in rules file.
+  * Replacing obsolete dh_clean -k with dh_prep.
+  * Prefixing debhelper files with package name.
+  * Updating year in copyright.
+  * Updating standards version to 3.8.2.
+  * Using quilt rather than dpatch.
+  * Reordering rules file.
+  * Adding pid and ppid in dump-acct.8, thanks to Justin Pryzby
+    <justinpryzby@users.sourceforge.net> (Closes: #511425).
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 07 Jul 2009 00:41:35 +0200
+
+acct (6.4~pre1-6) unstable; urgency=medium
+
+  * Adjusted lsb header of init script, thanks Petter Reinholdtsen
+    <pere@hungry.com> (Closes: #466279).
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 08 Mar 2008 09:04:00 +0100
+
+acct (6.4~pre1-5) unstable; urgency=low
+
+  * Bumped to new policy.
+  * Using new homepage field in control.
+  * Don't hide make errors in clean target.
+  * Removing historic changes entries in the first lines of changelog
+    entries, they are present in the actual entries anyway but are
+    causing lintian noise.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 27 Dec 2007 08:45:00 +0100
+
+acct (6.4~pre1-4) unstable; urgency=low
+
+  * Minor cleanups.
+  * Bumped to debhelper 5.
+  * Added lsb header to init.d.
+  * Added the remaining things to cron.monthly, other things were solved
+    different already (Closes: #378359).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 29 Apr 2007 12:27:00 +0200
+
+acct (6.4~pre1-3) unstable; urgency=medium
+
+  * Adapted the patch from Dean Gaudet <dean-debian@arctic.org> to add
+    lastcomm -f - stdin and --forwards support to current acct
+    (Closes: #262583).
+  * Fixed cron.monthly to not process the non-rotated logfile twice if the
+    rotated one isn't existing (Closes: #51796).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 5 Nov 2006 13:55:00 +0100
+
+acct (6.4~pre1-2) unstable; urgency=medium
+
+  * Forgot to remove unused var in init.d (Closes: #397134).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 5 Nov 2006 13:55:00 +0100
+
+acct (6.4~pre1-1) unstable; urgency=medium
+
+  * New email address.
+  * Hardcoding location of the log files, using environment variables does not
+    work for all binaries (Closes: #377835, #380744, #385626, #392045, #396444).
+  * Adjusted init.d script to log to syslog directly as suggested by
+    Gian Piero Carrubba <gpcarrubba@libero.it> (Closes: #208939).
+  * Updated sort call in cron.monthly to new syntax as found out by
+    Gilles Mocellin <gilles.mocellin@free.fr> and others
+    (Closes: #375712, #381492).
+  * Updated ac call in cron.monthly to process both $WTMP and /var/log/wtmp.1
+    (Closes: #324910).
+  * Fixed spelling mistake in default (Closes: #392023).
+  * Fixed spelling mistake and incompleteness in dump-acct.8 (Closes: #392134).
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 04 Nov 2006 10:10:00 +0100
+
+acct (6.3.99+6.4pre1-4) unstable; urgency=low
+
+  * Fixed typo in init.d (Closes: #361109, #361109).
+
+ -- Daniel Baumann <daniel.baumann@panthera-systems.net>  Sun, 25 Jun 2006 08:37:00 +0200
+
+acct (6.3.99+6.4pre1-3) unstable; urgency=low
+
+  * Storing logging information for a month instead of a week (Closes: #271466).
+  * Rewritten init.d and fixed accton call in init.d (Closes: #361109, #361109).
+  * Using /etc/default/acct now to store settings
+    (Closes: #219194, #353034, #361111).
+  * Fixed manpage error (Closes: #360098, #364589)
+
+ -- Daniel Baumann <daniel.baumann@panthera-systems.net>  Fri, 23 Jun 2006 06:53:00 +0200
+
+acct (6.3.99+6.4pre1-2) unstable; urgency=low
+
+  * Removed useless debconf message (Closes: #358698).
+  * Removed last documentation (Closes: #360302).
+
+ -- Daniel Baumann <daniel.baumann@panthera-systems.net>  Sun, 28 May 2006 05:36:00 +0200
+
+acct (6.3.99+6.4pre1-1) unstable; urgency=low
+
+  * New maintainer (Closes: #357362).
+  * New upstream release:
+    - supporting v3 file format (Closes: #289648, #291154, #327134)
+  * Redone debian directory:
+    - added watch file.
+    - corrected copyright file (Closes: #290052).
+    - fixed debconf depends (Closes: #331731).
+    - removed references to non-existing pacct in dump-acct.8 (Closes: #293837).
+    - removed dpatches: one was merged upstream, manpages are broken-out, and
+      /usr/bin/last ist removed after compilation (less intrusive).
+    - added Czech debconf translation (Closes: #282320, #287291).
+    - added Finnish debconf translation (Closes: #303851).
+    - added Vietnamese debconf translation (Closes: #307597).
+    - updated Dansk debconf translation (Closes: #241243).
+    - updated German debconf translation (Closes: #314136).
+  * Acknowledge NMU:
+    - fixed gzipped logfile handling in cron.monthly
+      (Closes: #187538, #208220, #212961).
+    - adjusted logfile path for logger call in init.d (Closes: #208939).
+
+ -- Daniel Baumann <daniel.baumann@panthera-systems.net>  Sat, 18 Mar 2006 18:38:00 +0100
+
+acct (6.3.5-39) unstable; urgency=low
+
+  * Acknowledging NMU's. Thanks. (closes: #187539, #198581, #198581)
+  * Added Co-Maintainer (me) to Uploaders field.
+  * Added/updated polish, greek, portuguese, japanese translations.
+    (closes: #208954, #229531, #216200, #222063, #229499, #229523)
+  * Bumped Standars-Version to 3.6.1.
+
+ -- AndrÃ©s RoldÃ¡n <aroldan@debian.org>  Sun, 01 Feb 2004 23:02:22 +0000
+
+acct (6.3.5-38.2) unstable; urgency=low
+
+  * Fix gzip support in cron.monthly to not delete/recreate the wtmp file
+    (gunzip: /var/log/wtmp.1 already exists; not overwritten)
+
+ -- Matt Zimmerman <mdz@debian.org>  Sun, 01 Feb 2004 12:00:00 -0800
+
+acct (6.3.5-38.1) unstable; urgency=low
+
+  * NMU with maintainer consent
+  * Handled gzipped wtmp file. Closes: #187539. Thanks Tero Tilus
+  * Switch to po-debconf templates. Closes: #198581
+  * Added danish templates translation (converted to gettext). Closes: #174728
+
+ -- Christian Perrier <bubulle@debian.org>  Mon, 28 Jul 2003 16:32:05 +0200
+
+acct (6.3.5-38) unstable; urgency=low
+
+  * New maintainer (closes: #177233).
+  * Package builded from the scratch.
+  * Fixed danish debconf template.
+  * Fixed broken output on ia64 and alpha (closes: #169099).
+
+ -- Luis Bustamante <luferbu@fluidsignal.com>  Sun, 19 Jan 2003 01:26:12 -0500
+
+acct (6.3.5-37) unstable; urgency=low
+
+  * debian/dump-acct.8: Clarified meaning of time field (Closes: #177020)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 17 Jan 2003 19:22:55 -0600
+
+acct (6.3.5-36) unstable; urgency=low
+
+  * debian/template: Added new debconf text in Danish (Closes: #174727)
+  * debian/control: Upped debconf versioned Depends to ">= 1.2.9" (lintian)
+  * debian/control: Small editing in Description (lintian)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 01 Jan 2003 08:56:23 -0600
+
+acct (6.3.5-35) unstable; urgency=low
+
+  * etc/init.d/acct: Applied patch by ralf.hildebrandt@charite.de to rely
+    only on 'uname -r' as 'uname -a' fails on hppa (Closes: 165535)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 20 Oct 2002 19:17:43 -0500
+
+acct (6.3.5-34) unstable; urgency=low
+
+  * debian/control: s|Debian Linux|Debian GNU/Linux| (Closes: #150886)
+  * debian/rules: Move #DEBHELPER# to end so that /etc/init.d/acct is
+    called after modes/owner chg on /var/account/pacct (Closes: #153905)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 22 Jul 2002 19:44:05 -0500
+
+acct (6.3.5-33) unstable; urgency=low
+
+  * debian/cron.monthly: Test for /var/log/wtmp.1 (Closes: #146918)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 18 May 2002 12:20:57 -0500
+
+acct (6.3.5-32) unstable; urgency=low
+
+  * debian/templates: Updated Russian debconf template (Closes: #136918)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 18 May 2002 12:20:10 -0500
+
+acct (6.3.5-31) unstable; urgency=low
+
+  * debian/templates: Updated French debconf template (Closes: #134624)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 26 Feb 2002 20:49:57 -0600
+
+acct (6.3.5-30) unstable; urgency=low
+
+  * debian/templates: New debconf text in russian (Closes: #112535)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 14 Dec 2001 18:55:33 -0600
+
+acct (6.3.5-29) unstable; urgency=low
+
+  * debian/templates: Changed Type from text to note (Closes: #106327)
+  * debian/templates: New debconf text in spanish (Closes: #106935)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 31 Jul 2001 22:17:49 -0500
+
+acct (6.3.5-28) unstable; urgency=low
+
+  * sa.c: Applied patch by LaMont Jones which enables compilation by
+    gcc-3.0, the default compiler on the parisc architecure (Closes: #103147)
+  * debian/prerm: Don't call "/etc/init.d/acct stop" explicitly as
+    debhelper's dh_installinit also adds a call.
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 02 Jul 2001 21:40:05 -0500
+
+acct (6.3.5-27) unstable; urgency=low
+
+  * debian/{cron.daily,postinst}: change pacct to mode 0640,root.adm.
+    Thanks to Manuel López Moreno <mlm@luname.net> (Closes: #86045)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 01 May 2001 22:21:27 -0500
+
+acct (6.3.5-26) unstable; urgency=low
+
+  * debian/templates: Added text for pt translation (Closes: #89439)
+  * debian/{pre,post}{inst,rm}: lintian cleanups
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 19 Apr 2001 21:54:36 -0500
+
+acct (6.3.5-25) unstable; urgency=low
+
+  * debian/control: Added Standards-Version: back in (Closes: #86925)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 21 Feb 2001 21:01:50 -0600
+
+acct (6.3.5-24) unstable; urgency=low
+
+  * debian/control: Added Build-Depends on texinfo (Closes: #85073)
+  * For good measure, added a few more suggested by dpkg-genbuilddeps
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 07 Feb 2001 22:29:02 -0600
+
+acct (6.3.5-23) unstable; urgency=low
+
+  * debian/templates: Added non-English debconf text text for sv, nl, es
+    and a new one for fr. (Closes: #83478, #83583, #84017, #84411)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 04 Feb 2001 19:56:09 -0600
+
+acct (6.3.5-22) unstable; urgency=low
+
+  * debian/control: Build-Depends on texi2html and no longer on tetex-bin
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 04 Jan 2001 20:42:54 -0600
+
+acct (6.3.5-21) unstable; urgency=low
+
+  * debian/cron.monthly: Special case for logrotate (Closes: #68043)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 06 Aug 2000 16:15:23 -0400
+
+acct (6.3.5-20) unstable; urgency=low
+
+  * debian/control: Add texi2html to Build-Depends (Closes: #67531)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 21 Jul 2000 17:22:55 -0400
+
+acct (6.3.5-19) unstable; urgency=low
+
+  * debian/rules: Install dump-acct.8 and dump-utmp.8 which were
+    contributed by Ognyan Kulev <ogi@fmi.uni-sofia.bg>
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 19 Jul 2000 19:08:13 -0400
+
+acct (6.3.5-18) unstable; urgency=low
+
+  * debian/templates: Apply Italian debconf text (Closes: #64160)
+  * debian/templates: Also added German and French text
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 27 May 2000 16:28:13 -0400
+
+acct (6.3.5-17) unstable; urgency=low
+
+  * debian/control: Added Build-Depends: information (Closes: #51840)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 15 Dec 1999 18:42:48 -0500
+
+acct (6.3.5-16) unstable; urgency=low
+
+  * postinst: Added db_stop upon Joey Hess' advice (Closes: #50043)
+  * control: Upgraded to Policy 3.1.0
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 14 Nov 1999 19:39:17 -0500
+
+acct (6.3.5-15) unstable; urgency=low
+
+  * Ah, the joys of new technology. Helping out with the whirlwind upgrade
+    to the new debconf, we were bitten by a simple mistake in the config
+    file. Thanks again to Joey Hess for a quick fix  (Closes: #48861)
+  * control: Require debconf >= 0.2
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 01 Nov 1999 20:45:05 -0500
+
+acct (6.3.5-14) unstable; urgency=low
+
+  * preinst: Test for install-docs (fixes Lintian error)
+  * postinst, config: Small debconf changes, kindly supplied by Joey Hess
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 31 Oct 1999 10:14:32 -0500
+
+acct (6.3.5-13) unstable; urgency=low
+
+  * Integrated Joey Hess' changes for debconf.
+
+  * debian/rules: Adapted to use /usr/share/ following the recommendation
+    on FHS transition from the Technical Committee
+  * debian/control: Upgraded to Debian Policy 3.0.1
+
+  * debian/control: Removed obsolete note about required kernel patch
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 02 Oct 1999 11:35:22 -0400
+
+acct (6.3.5-12) unstable; urgency=low
+
+  * Upgraded to new Debian Perl Policy
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 04 Jul 1999 14:19:41 -0400
+
+acct (6.3.5-11) unstable; urgency=low
+
+  * Recompiled on a 2.2.* system
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 30 May 1999 11:59:22 -0400
+
+acct (6.3.5-10) unstable; urgency=low
+
+  * debian/rules: Define -DHAVE_LINUX_ACCT_H=1 in order to use acct.h from
+    the 2.2.9 kernel and not sys.h from glibc-2.0
+  * debian/acctdump: No longer installed as it works neither with
+    linux/acct.h, nor with sys/acct.h (and there still is dump-acct)
+  * compare_kernel_version:
+    -- changed to use POSIX::uname, not `uname`
+    -- added run-time flag -d for debug mode
+    -- corrected return value logic (fixes #37421)
+  * compare_kernel_version.8: added a simple manual page
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 16 May 1999 21:52:52 -0400
+
+acct (6.3.5-9) unstable; urgency=low
+
+  * Recompiled under 2.2.* kernel (#18314, #24085)
+
+  * Added a simple script /usr/sbin/compare_kernel_version to test the
+    running kernel against a command-line argument specifying a minimum
+    kernel version
+  * postinst: test for kernel >= 2.2 and, if needed, display a message
+    suggesting the slink version of the package
+  * /etc/init.d/acct: test for kernel >= 2.2 and exit early with short
+    mesage if installed kernel does not match (ie < 2.2)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 04 May 1999 20:44:34 -0400
+
+acct (6.3.5-8) unstable; urgency=low
+
+  * debian/prerm: Call /etc/init.d/acct to stop accounting as this more
+    robust against missing Accounting support in the kernel. (fixes #32711)
+  * debian/control: Added note that Accounting support has to be compiled
+    into the kernel for this to work.
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 02 Feb 1999 18:30:56 -0500
+
+acct (6.3.5-7) unstable; urgency=low
+
+  * debian/control: Deleted stale text errenously left over (fixes #32616)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 29 Jan 1999 18:38:28 -0500
+
+acct (6.3.5-6) unstable; urgency=low
+
+  * debian/{rules,postinst,postrm}: Removed support for html documentation
+    through menu as it is now provided by doc-base
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 14 Jan 1999 20:50:25 -0500
+
+acct (6.3.5-5) unstable; urgency=low
+
+  * Added support for doc-base
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 05 Jan 1999 21:43:16 -0500
+
+acct (6.3.5-4) frozen unstable; urgency=low
+
+  * [cron.daily, cron.monthly] Added tests for the existence of
+    /usr/sbin/accton. This helps for cases where acct is removed, but not
+    purged, and these conffiles are still around. (fixes #29340)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 12 Nov 1998 21:32:37 -0500
+
+acct (6.3.5-3) unstable; urgency=low
+
+  * Corrected typos in console messages in /etc/init.d/acct (fixes #23480)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 13 Jun 1998 11:57:14 -0400
+
+acct (6.3.5-2) unstable; urgency=low
+
+  * Changed /etc/init.d/acct by adding two 'set +e; ... set -e' blocks
+    so that missing accounting support is properly recognised in all
+    branches of the script  (fixes #23282)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 09 Jun 1998 21:36:16 -0400
+
+acct (6.3.5-1) unstable; urgency=low
+
+  * Upgraded to new upstream version 6.3.5 (fixes #3249)
+  * This version does not work under 2.1.* kernels which the upstream
+    author is trying to rectify.
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 27 May 1998 18:43:08 -0400
+
+acct (6.3.2-4) frozen unstable; urgency=low
+
+  * Changed debian/rules to not install last.1 as we don't install the
+    last(1) command from acct (but rather sysvinit's) (fixes #22215)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 07 May 1998 20:19:05 -0400
+
+acct (6.3.2-3) unstable; urgency=low
+
+  * Removed the note regarding accounting patch for kernels younger than
+    1.3.72 from debian/copyright and debian/control. Thanks to Richard
+    Braakman <dark@xs4all.nl> for pointing this out (fixes #21334)
+  * Added the 'acctdump' program which was provided by Ian Jackson
+    <ian@davenant.greenend.org.uk> (fixes #20839)
+  * Upgraded debian/rules to debhelper
+  * Upgraded to Debian Policy 2.4.1
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 18 Apr 1998 16:12:41 -0400
+
+acct (6.3.2-2) frozen unstable; urgency=low
+
+  * Really changed /etc/init.d/acct so that logger reports to
+    /var/log/daemon.log and not to /var/adm/daemon.log (fixes #18763)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 24 Mar 1998 19:34:07 -0500
+
+acct (6.3.2-1) unstable; urgency=low
+
+  * Upgraded to new upstream version 6.3.2
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 10 Mar 1998 19:46:34 -0500
+
+acct (6.3-2) unstable; urgency=low
+
+  * Changed /etc/init.d/acct so that logger reports to /var/log/daemon.log
+    and not to /var/adm/daemon.log (fixes #18763)
+  * Fixed FSF address in copyright (lintian)
+  * Redirect update-rc.d call to /dev/null in postrm (lintian)
+  * Added force-reload and restart targets to /etc/init.d/acct (lintian)
+  * Created links to ../man7/undocumented.7.gz in lieu of manual pages
+    for the two utility programs dump-acct and dump-utmp (lintian)
+  * Upgraded to Debian Policy 2.4.0.0
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 09 Mar 1998 20:24:05 -0500
+
+acct (6.3-1) unstable; urgency=low
+
+  * Upgraded to new upstream version 6.3 (which has been promoted from
+    alpha.gnu.mit.edu to the brave GNU world of prep.ai.mit.edu)
+  * Compiled with GNU libc2 aka libc6
+  * Now ships the unmodified upstream source as acct_6.3.orig.tar.gz
+  * Changed debian/rules to also create accounting.html via texi2html
+  * Added menu entry for html documentation
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 19 Aug 1997 22:11:21 -0400
+
+acct (6.2-5) unstable; urgency=low
+
+  * Added a variable to /etc/init.d/acct so that acct is installed but
+    not started automatically if this variable is unset (fixes bug #11126)
+  * Changed /etc/cron.daily/acct to call acct via /etc/init.d/acct and not
+    directly so that the new variable is tested (fixes bug #11126)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 9 Jul 1997 22:18:30 -0400
+
+acct (6.2-4) unstable; urgency=low
+
+  * The preinst no longer stops accounting during an upgrade as this is
+    already done by the the postrm of the replaced packaged (fixes bug#7320)
+
+  * No longer installs acct.5 which is provided by the manpages package
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 3 Mar 1997 20:57:37 -0500
+
+acct (6.2-3) unstable; urgency=low
+
+  * Use logger(1) to report unexpected return calls from accton(8) as
+    suggested by Russell John Coker <rjc@snoopy.virtual.net.au>
+
+  * Converted to Debian Standard 2.1.2.2 (fixes #7121)
+  * Changed maintainer email address to <edd@debian.org>
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 9 Feb 1997 22:00:42 -0500
+
+Tue Jul  9 22:33:18 1996  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-6.2-2 release
+
+	* debian.rules: fixed copyright installation (fixes bug#3738)
+
+Mon Jul  8 11:07:01 1996  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-6.2-1 release
+
+	* acct.rc: /etc/init.d/acct tests for accton (fixes bug#3513)
+
+	* debian.rules: compress man pages with gzip -9
+
+	* debian.postrm: "purge" now deletes /var/account directory
+
+	* debian.control: changed description
+
+Sat Apr 20 22:30:46 1996  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-6.2-0 release: updated to new upstream version acct-6.2
+
+Wed Apr 10 19:38:37 1996  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-6.1-0 release
+
+	* converted to new upstream version acct-6.1 (fixes bug#2069)
+
+	* added man pages for the acct commands that were provided by
+	  Susan G. Kleinmann <sgk@sgk.tiac.net> and a simple acct.5 man
+	  page (fixes bug#1737)
+
+	* ac.c: added a space to printf format (should fix bug#2283)
+
+	* debian.rules: provide only acct, last is now provided by sysvinit
+
+	* debian.control: added Architecture: field
+
+	* acct.daily: exit(0) so that cron doesn't get the errno from accton.c
+
+Sat Dec  2 14:00:19 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-5-13 and last-5-13 release
+
+	* debian.control: ELF release, depends on libc5
+
+Fri Oct 13 09:41:36 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-5-12 and last-5-12 release
+
+	* uid_hash.h (NAME_LEN): fixed bug#1651 reported and patched by
+	  Austin Donnelly <and1000@cam.ac.uk>
+
+Wed Oct 11 08:53:29 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-5-11 and last-5-11 release
+
+	* debian.postinst: call update-rc.d (fixes bug #1622)
+
+Mon Oct  2 16:39:00 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* dropped `alpha' from package names, now acct-5-10 and last-5-10
+
+	* accton.c: exit() now returns value of `errno' and /etc/init.d/acct
+	  examines that value; this gives better messages
+
+	* accounting.texi: added a missing formatter for @item
+
+	* last.1 man page addded
+
+Wed Sep 27 10:59:55 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* debian.control, debian.README: fixed bug #1486 by adding a note
+	  that 'sa' is unavailable due to missing support in the current
+	  kernel patch
+
+Thu Sep 21 15:52:14 1995  Dirk Eddelbuettel  <edd@miles.econ.queensu.ca>
+
+	* acct-alpha-5-8 and last-alpha-5-8
+
+	* first separate release of 'last' package
+
+	* changed control file for acct (fixes bugs #1415, #1131 and #969)
+
+	* silent when accton fails during installation (fixes bug #1415)
+
+	* new maintainer
+
+
+[edd: Changes made by Ian Murdock follow]
+
+Changes:
+ * added Debian GNU/Linux package maintenance system files
+ * added scripts to rotate process accounting file (daily), to perform
+   monthly login accounting, and to start process accounting at system
+   start time
+ * added __linux__ definitions to files.h (we use /var/account/pacct
+   as ACCT_FILE, /var/account/wtmp as WTMP_FILE, /var/account/savacct
+   as SAVACCT_FILE, and /var/account/usracct as USRACCT_FILE)
+ * changed last to truncate ftp entries by default (as Unix does it)
+ * fixed a typo in accounting.texi
